@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Three</title>
+</head>
+	<body id="body">
+		<script type="module">
+			import * as T from './js/three.js';
+			var s=new T.Scene();
+			var r=new T.WebGLRenderer();
+			var c=new T.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+			r.setSize(window.innerWidth,window.innerHeight);
+			document.body.appendChild(r.domElement);
+			/*--Set Camera--*/
+			c.position.set( 0, 0, 10 );
+			/*--Add Object--*/
+			var g=new T.SphereGeometry(5,32,32);
+			var ma=new T.MeshBasicMaterial({color:0xffff00,wireframe:true});
+			var m=new T.Mesh(g,ma);
+			s.add(m);
+			r.render(s,c);
+			/*--Add Animation--*/
+			var update=function(){
+				s.rotation.x+=0.01;
+				s.rotation.y+=0.005;
+				s.rotation.z+=0.01;
+			};
+			
+			var gl=function(){
+				/*--Loop--*/
+				requestAnimationFrame(gl);
+				update();
+				r.render(s,c);
+			};
+			gl();
+		</script>
+	</body>
+</html>
